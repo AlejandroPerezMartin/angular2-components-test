@@ -10,15 +10,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var WidgetThree = (function () {
-    function WidgetThree() {
+    function WidgetThree(renderer) {
+        this.renderer = renderer;
+        this.message = 'default value!';
     }
+    WidgetThree.prototype.ngAfterViewInit = function () {
+        this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', [] // optional args, no necessary to pass
+        );
+    };
     return WidgetThree;
 }());
+__decorate([
+    core_1.ViewChild('input'),
+    __metadata("design:type", Object)
+], WidgetThree.prototype, "input", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], WidgetThree.prototype, "message", void 0);
 WidgetThree = __decorate([
     core_1.Component({
         selector: 'widget-three',
-        template: "<div>Widget three</div>"
+        template: "\n        <div>Widget three</div>\n        <input #input type=\"text\" [value]=\"message\">\n    "
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [core_1.Renderer])
 ], WidgetThree);
 exports.WidgetThree = WidgetThree;
